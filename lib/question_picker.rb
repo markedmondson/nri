@@ -123,11 +123,11 @@ class QuestionPicker
         @questions.delete(strand)
       end
 
-      if ENV['DEBUG']
-        puts "strand: #{strand}, standard: #{standard}, question: #{question}"
-        puts questions
-        puts strands
-      end
+      # if ENV['DEBUG']
+      #   puts "strand: #{strand}, standard: #{standard}, question: #{question}"
+      #   puts questions
+      #   puts strands
+      # end
     end
 
     chosen_questions
