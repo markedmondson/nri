@@ -111,6 +111,18 @@ class QuestionPicker
       # Reset from chosen standards if we've picked from them all
       reset_chosen_standards(strand) if chosen_all_standards?(strand)
 
+      # If no standards remain, remove the standard from the strand
+      if questions[strand][standard].size == 0
+        @strands[strand].delete(standard)
+        @questions[strand].delete(standard)
+      end
+
+      # If no questions remain, remove the strand entirely
+      if questions[strand].size == 0
+        @strands.delete(strand)
+        @questions.delete(strand)
+      end
+
       if ENV['DEBUG']
         puts "strand: #{strand}, standard: #{standard}, question: #{question}"
         puts questions
