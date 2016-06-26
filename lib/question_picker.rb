@@ -6,8 +6,8 @@ class QuestionPicker
   def initialize(file_path=nil)
     if file_path
       load_questions(file_path)
-      load_strands
       sort_questions
+      load_strands
     end
 
     @chosen_questions ||= []
@@ -22,10 +22,11 @@ class QuestionPicker
     @csv_questions = CSV.read(file_path, headers: true, header_converters: :symbol, converters: :all)
   end
 
-  # TODO
+  # Sort by difficulty
+  # @return [CSV::Table]
   #
   def sort_questions
-    # @questions = questions.sort! { |a, b| a[:difficulty] <=> b[:difficulty] }
+    @csv_questions = @csv_questions.sort { |a, b| a[:difficulty] <=> b[:difficulty] }
   end
 
   # Transform to strand => [standards] hash eg.
@@ -71,10 +72,9 @@ class QuestionPicker
   # Pick a standard from the remaining choices for this strand
   # @param [Integer] strand
   # @return [Integer] standard
-  # TODO: change .sample to .shift when sorted by difficulty
   #
   def pick_standard(strand)
-    standard = (strands[strand] - chosen_standards[strand]).sample
+    standard = (strands[strand] - chosen_standards[strand]).shift
     chosen_standards[strand] << standard
     standard
   end
