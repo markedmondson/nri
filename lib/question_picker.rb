@@ -106,8 +106,10 @@ class QuestionPicker
       standard = pick_standard(strand)
       question = pick_question(strand, standard)
 
-      # TODO reset strands when picked from both
-      # TODO reset standards when picked from both
+      # Reset from chosen strands if we've picked from them all
+      reset_chosen_strands if chosen_all_strands?
+      # Reset from chosen standards if we've picked from them all
+      reset_chosen_standards(strand) if chosen_all_standards?(strand)
 
       if ENV['DEBUG']
         puts "strand: #{strand}, standard: #{standard}, question: #{question}"
@@ -117,5 +119,33 @@ class QuestionPicker
     end
 
     chosen_questions
+  end
+
+  private
+
+  # Reset the chosen strands array
+  #
+  def reset_chosen_strands
+    @chosen_strands = []
+  end
+
+  # Have all available strands been chosen from?
+  #
+  def chosen_all_strands?
+    chosen_strands.size >= strands.keys.size
+  end
+
+  # Reset the chosen strands array
+  # @param [Integer] strand
+  #
+  def reset_chosen_standards(strand)
+    @chosen_standards[strand] = []
+  end
+
+  # Reset the chosen standards array for this strand
+  # @param [Integer] strand
+  #
+  def chosen_all_standards?(strand)
+    chosen_standards[strand].size >= strands[strand].size
   end
 end

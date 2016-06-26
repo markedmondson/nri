@@ -124,6 +124,14 @@ describe QuestionPicker do
   end
 
   describe '#pick_questions' do
+    context 'if there are no strands setup' do
+      let(:strands) { {} }
+
+      it 'should return empty array' do
+        expect(picker.pick_questions(4)).to eq []
+      end
+    end
+
     it 'should return an array of questions' do
       expect(picker.pick_questions(4)).to contain_exactly(1, 2, 3, 4)
     end
