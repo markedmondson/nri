@@ -2,6 +2,5 @@
 FROM ruby:2.2.4
 
 RUN apt-get  -q update
-RUN gem install rspec csv pry
 
 WORKDIR /app

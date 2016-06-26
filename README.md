@@ -3,6 +3,9 @@
 
 `eval $(docker-machine env noredink)`
 
+# Bundle
+`docker-compose run --rm dev bundle`
+
 # Script
 `docker-compose run --rm dev`
 
