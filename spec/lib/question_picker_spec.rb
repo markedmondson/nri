@@ -36,8 +36,32 @@ describe QuestionPicker do
   end
 
   describe '#sort_questions' do
-    xit 'should order the questions by difficulty' do
+    let(:csv_questions) {
+      [
+        {
+          strand_id: 1,
+          standard_id: 1,
+          question_id: 1,
+          difficulty: 0.8
+        },
+        {
+          strand_id: 1,
+          standard_id: 1,
+          question_id: 2,
+          difficulty: 0.2
+        }
+      ]
+    }
 
+    before { picker.csv_questions = csv_questions }
+
+    before do
+      picker.questions = nil
+      picker.sort_questions
+    end
+
+    it 'should order the questions by difficulty' do
+      expect(picker.questions).to eq({ 1 => { 1 => [2, 1] }})
     end
   end
 
