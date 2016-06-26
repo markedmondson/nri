@@ -1,3 +1,5 @@
+require 'csv'
+
 class QuestionPicker
   attr_accessor :questions
 
