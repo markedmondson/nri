@@ -3,6 +3,7 @@ require_relative '../spec_helper'
 require_relative '../../lib/question_picker'
 
 describe QuestionPicker do
+  let(:picker)    { described_class.new }
   describe '#load_questions' do
     let(:file_path) { File.expand_path 'spec/fixtures/questions.csv' }
 
