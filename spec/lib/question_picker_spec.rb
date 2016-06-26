@@ -81,9 +81,51 @@ describe QuestionPicker do
     end
   end
 
+  describe '#pick_strand' do
+    it 'should return a valid strand' do
+      expect([1, 2]).to include picker.pick_strand
+    end
+
+    it 'should add the picked strand to an array' do
+      strand = picker.pick_strand
+
+      expect(picker.chosen_strands).to eq [strand]
+    end
+
+    context 'when one strand has already been chosen' do
+      before { picker.chosen_strands = [1] }
+
+      it 'should pick from unique strands' do
+        expect(picker.pick_strand).to eq 2
+      end
+    end
+  end
+
+  describe '#pick_standard' do
+    before { picker.strands = strands }
+
+    it 'should pick from the pass strand' do
+      expect(picker.pick_standard(2)).to eq 3
+    end
+
+    it 'should add the picked standard to an array' do
+      picker.pick_standard(2)
+
+      expect(picker.chosen_standards).to eq({ 2 => [3] })
+    end
+
+    context 'when one standard has already been chosen' do
+      before { picker.chosen_standards = { 1 => [1] } }
+
+      it 'should pick from unique standards' do
+        expect(picker.pick_standard(1)).to eq 2
+      end
+    end
+  end
+
   describe '#pick_questions' do
     it 'should return an array of questions' do
-      expect(picker.pick_questions(4)).to contain_exactly(1, 2, 3)
+      expect(picker.pick_questions(4)).to contain_exactly(1, 2, 3, 4)
     end
   end
 end
