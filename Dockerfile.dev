@@ -2,6 +2,6 @@
 FROM ruby:2.2.4
 
 RUN apt-get  -q update
-RUN bundle install csv pry
+RUN gem install rspec csv pry
 
 WORKDIR /app
