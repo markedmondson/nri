@@ -1,0 +1,21 @@
+dev: &dev
+  build:        .
+  dockerfile:   Dockerfile.dev
+  volumes:      ["./:/app"]
+  volumes_from: [bundle]
+  command:      bundle exec ruby app.rb
+  environment:  &env
+    TERM:         xterm
+
+test:
+  <<: *dev
+  command: rspec --format documentation --color spec
+  environment:
+    <<: *env
+    ENV: test
+
+bundle:
+  <<: *dev
+  command:      tail -f /dev/null
+  volumes:      ["/usr/local/bundle"]
+  volumes_from: []

@@ -1,0 +1,7 @@
+# -*- mode: Dockerfile; tab-width: 2 -*-
+FROM ruby:2.2.4
+
+RUN apt-get  -q update
+RUN bundle install csv pry
+
+WORKDIR /app
